@@ -1,11 +1,17 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import {game} from "@/store/game";
+import {RootState} from './types';
+import Vue from 'vue';
+import Vuex, { StoreOptions } from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
-});
+const store: StoreOptions<RootState> = {
+    state: {
+        version: '1.0.0'
+    },
+    modules: {
+        game
+    }
+};
+
+export default new Vuex.Store<RootState>(store);
