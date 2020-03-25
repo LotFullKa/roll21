@@ -11,3 +11,10 @@
 
 ### Run local django server
 - run `python manage.py runserver`
+
+### Vuejs
+- navigate to `frontend` dir
+- run npm install
+
+### Serve frontend
+- run `npm run serve` in `frontend` dir
