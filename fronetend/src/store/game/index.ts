@@ -17,6 +17,7 @@ export const state: GameState = {
             isDead: false
         }
     ],
+    myId: 1,
     xSize: 15,
     ySize: 15,
 };
