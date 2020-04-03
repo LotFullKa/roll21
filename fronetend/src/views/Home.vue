@@ -1,9 +1,11 @@
 <template>
-  <p>Home</p>
+  <Field />
 </template>
 
 <script>
+import Field from "@/components/Field";
 export default {
-  name: "Home"
+  name: "Home",
+  components: { Field }
 };
 </script>

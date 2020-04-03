@@ -1,5 +1,7 @@
 export interface GameState {
-    subjects?: Subject[]
+    subjects?: Subject[],
+    xSize: number,
+    ySize: number,
 }
 
 export interface Subject {
@@ -7,7 +9,7 @@ export interface Subject {
     xPos: number,
     yPos: number,
     hp: number,
-    isDead: number,
+    isDead: boolean,
     name: string,
     color: Color
 }
