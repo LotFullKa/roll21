@@ -1,28 +1,38 @@
 from django.db import models
 from django.conf import settings
-from random import randint
+from random import randint, choice
+
+
+def default_color():
+    return choice(Subject.COLORS_CHOICES)[0]
 
 
 class Subject(models.Model):
-
-    name = models.CharField(max_length=60)
-    x_pos = models.SmallIntegerField()
-    y_pos = models.SmallIntegerField()
-    hp = models.SmallIntegerField(default=100)
-    is_dead = models.BooleanField(default=False)
-    type_of_subject = models.CharField(max_length=50)
-
     COLOR_RED = "red"
     COLOR_BLUE = "blue"
     COLOR_GREEN = "green"
 
-    colors = (
+    COLORS_CHOICES = (
         (COLOR_RED, "красный"),
         (COLOR_BLUE, "голубой"),
         (COLOR_GREEN, "зеленый"),
     )
 
-    color_choices = models.CharField(choices=colors, max_length=50)
+    SUBJECT_TYPE_HUMAN = "human"
+    SUBJECT_TYPE_GOBLIN = "goblin"
+
+    SUBJECT_TYPE_CHOICES = (
+        (SUBJECT_TYPE_HUMAN, "Человек"),
+        (SUBJECT_TYPE_GOBLIN, "гоблин"),
+    )
+
+    name = models.CharField(max_length=60, unique=True)
+    x_pos = models.SmallIntegerField(blank=True)
+    y_pos = models.SmallIntegerField(blank=True)
+    hp = models.SmallIntegerField(default=100)
+    is_dead = models.BooleanField(default=False)
+    type_of_subject = models.CharField(max_length=50, choices=SUBJECT_TYPE_CHOICES, default=SUBJECT_TYPE_HUMAN)
+    color = models.CharField(choices=COLORS_CHOICES, max_length=50, default=default_color)
 
     def move(self, new_x, new_y):
         self.x_pos = new_x
@@ -34,13 +44,15 @@ class Subject(models.Model):
             self.x_pos, self.y_pos = self.generate_pos()
         super().save(**kwargs)
 
-    @staticmethod
-    def generate_pos():
-        # TODO: @Kamil control recursion depth
+    def generate_pos(self):
+        # TODO: @ProKam control recursion depth
         x = randint(0, settings.FIELD_SIZE)
         y = randint(0, settings.FIELD_SIZE)
 
-        if not Subject.objects.exists(x_pos=x, y_pos=y):
+        if not Subject.objects.filter(x_pos=x, y_pos=y).exists():
             return x, y
         else:
-            return Subject.generate_pos()
+            return self.generate_pos()
+
+    def __str__(self):
+        return self.name
