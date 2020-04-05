@@ -13,6 +13,8 @@ export interface Subject {
     isDead: boolean;
     name: string;
     color: Color;
+    typeOfSubject: TypeOfSubject;
 }
 
+export type TypeOfSubject = 'human'|'goblin';
 export type Color = 'red'|'blue'|'green';

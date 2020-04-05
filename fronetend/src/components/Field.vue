@@ -2,9 +2,9 @@
   <div class="field">
     <Row
       v-for="i in ySize"
-      :key="`row${i}`"
+      :key="`row${i - 1}`"
       :cell-count="xSize"
-      :row-id="i"
+      :row-id="i - 1"
     ></Row>
   </div>
 </template>
@@ -21,8 +21,12 @@ const gameModule = namespace("game");
 export default class Field extends Vue {
   @gameModule.State(state => state.xSize) xSize!: number;
   @gameModule.State(state => state.ySize) ySize!: number;
+  @gameModule.Action("fetchData") fetchData!: () => void;
+
+  created(): void {
+    this.fetchData();
+  }
 }
 </script>
 
-<style scoped lang="sass">
-</style>
+<style scoped lang="sass"></style>

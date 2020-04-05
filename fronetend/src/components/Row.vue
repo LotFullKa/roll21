@@ -2,9 +2,9 @@
   <div class="row">
     <Cell
       v-for="j in cellCount"
-      :key="`row${rowId}cell${j}`"
+      :key="`row${rowId}cell${j - 1}`"
       :row-id="rowId"
-      :cell-id="j"
+      :cell-id="j - 1"
     />
   </div>
 </template>
