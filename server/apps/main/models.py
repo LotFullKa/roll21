@@ -1,14 +1,17 @@
 from django.db import models
 from django.conf import settings
-from random import randint, choice
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from .managers import UserManager
 from django.utils.translation import ugettext_lazy as _
+from random import randint
+
+from main.constants import SubjectTypeEnum, ColorEnum
+from utils.enum_helpers import enum_to_choices, random_enum_key
 
 
 def default_color():
-    return choice(Subject.COLORS_CHOICES)[0]
+    return random_enum_key(ColorEnum)
 
 
 class User(AbstractBaseUser):
@@ -22,31 +25,19 @@ class User(AbstractBaseUser):
 
 
 class Subject(models.Model):
-    COLOR_RED = "red"
-    COLOR_BLUE = "blue"
-    COLOR_GREEN = "green"
-
-    COLORS_CHOICES = (
-        (COLOR_RED, "красный"),
-        (COLOR_BLUE, "голубой"),
-        (COLOR_GREEN, "зеленый"),
-    )
-
-    SUBJECT_TYPE_HUMAN = "human"
-    SUBJECT_TYPE_GOBLIN = "goblin"
-
-    SUBJECT_TYPE_CHOICES = (
-        (SUBJECT_TYPE_HUMAN, "Человек"),
-        (SUBJECT_TYPE_GOBLIN, "гоблин"),
-    )
-
     name = models.CharField(max_length=60, unique=True)
     x_pos = models.SmallIntegerField(blank=True)
     y_pos = models.SmallIntegerField(blank=True)
     hp = models.SmallIntegerField(default=100)
     is_dead = models.BooleanField(default=False)
-    type_of_subject = models.CharField(max_length=50, choices=SUBJECT_TYPE_CHOICES, default=SUBJECT_TYPE_HUMAN)
-    color = models.CharField(choices=COLORS_CHOICES, max_length=50, default=default_color)
+    type_of_subject = models.CharField(
+        max_length=50,
+        choices=enum_to_choices(SubjectTypeEnum),
+        default=SubjectTypeEnum.HUMAN,
+    )
+    color = models.CharField(
+        choices=enum_to_choices(ColorEnum), max_length=50, default=default_color
+    )
     user = models.OneToOneField(
         to=User,
         on_delete=models.CASCADE,
