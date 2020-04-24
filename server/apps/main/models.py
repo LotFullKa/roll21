@@ -12,7 +12,7 @@ def default_color():
 
 
 class User(AbstractBaseUser):
-    username = models.CharField()
+    username = models.CharField(max_length=60)
 
     object = UserManager()
 
@@ -49,7 +49,8 @@ class Subject(models.Model):
     color = models.CharField(choices=COLORS_CHOICES, max_length=50, default=default_color)
     user = models.OneToOneField(
         to=User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     def move(self, new_x, new_y):
@@ -80,7 +81,12 @@ class Game_room(models.Model):
     name = models.CharField(max_length=60,  unique=True)
     players = models.ManyToManyField(User)
     turn_number = models.IntegerField()
-    now_player = players[turn_number]
+    now_player = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='now_player',
+        null=True,
+    )
 
     def next_turn(self):
         self.turn_number = (self.turn_number + 1) % len(self.players)
