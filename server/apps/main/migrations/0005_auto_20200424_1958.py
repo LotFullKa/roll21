@@ -5,7 +5,7 @@ import main.managers
 
 
 class Migration(migrations.Migration):
-
+    atomic = False
     dependencies = [
         ('main', '0004_merge_20200424_1851'),
     ]

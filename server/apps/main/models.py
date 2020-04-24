@@ -1,3 +1,5 @@
+from typing import List
+
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import PermissionsMixin
@@ -71,7 +73,7 @@ class Subject(models.Model):
 class GameRoom(models.Model):
     name = models.CharField(max_length=60,  unique=True)
     players = models.ManyToManyField(User)
-    turn_number = models.IntegerField()
+    turn_number = models.IntegerField(default=0)
     now_player = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -80,5 +82,14 @@ class GameRoom(models.Model):
     )
 
     def next_turn(self):
-        self.turn_number = (self.turn_number + 1) % len(self.players)
+        self.turn_number += 1
+        players_list: List[User] = list(self.players.all())
+        index = players_list.index(self.now_player)
+        next_index = (index + 1) % len(players_list)
+
+        self.now_player = players_list[next_index]
+
         self.save()
+
+    def __str__(self):
+        return self.name
