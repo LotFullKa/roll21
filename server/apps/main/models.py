@@ -1,38 +1,29 @@
 from django.db import models
 from django.conf import settings
-from random import randint, choice
+from random import randint
+
+from main.constants import SubjectTypeEnum, ColorEnum
+from utils.enum_helpers import enum_to_choices, random_enum_key
 
 
 def default_color():
-    return choice(Subject.COLORS_CHOICES)[0]
+    return random_enum_key(ColorEnum)
 
 
 class Subject(models.Model):
-    COLOR_RED = "red"
-    COLOR_BLUE = "blue"
-    COLOR_GREEN = "green"
-
-    COLORS_CHOICES = (
-        (COLOR_RED, "красный"),
-        (COLOR_BLUE, "голубой"),
-        (COLOR_GREEN, "зеленый"),
-    )
-
-    SUBJECT_TYPE_HUMAN = "human"
-    SUBJECT_TYPE_GOBLIN = "goblin"
-
-    SUBJECT_TYPE_CHOICES = (
-        (SUBJECT_TYPE_HUMAN, "Человек"),
-        (SUBJECT_TYPE_GOBLIN, "гоблин"),
-    )
-
     name = models.CharField(max_length=60, unique=True)
     x_pos = models.SmallIntegerField(blank=True)
     y_pos = models.SmallIntegerField(blank=True)
     hp = models.SmallIntegerField(default=100)
     is_dead = models.BooleanField(default=False)
-    type_of_subject = models.CharField(max_length=50, choices=SUBJECT_TYPE_CHOICES, default=SUBJECT_TYPE_HUMAN)
-    color = models.CharField(choices=COLORS_CHOICES, max_length=50, default=default_color)
+    type_of_subject = models.CharField(
+        max_length=50,
+        choices=enum_to_choices(SubjectTypeEnum),
+        default=SubjectTypeEnum.HUMAN,
+    )
+    color = models.CharField(
+        choices=enum_to_choices(ColorEnum), max_length=50, default=default_color
+    )
 
     def move(self, new_x, new_y):
         self.x_pos = new_x
