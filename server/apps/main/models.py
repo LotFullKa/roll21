@@ -1,10 +1,24 @@
 from django.db import models
 from django.conf import settings
 from random import randint, choice
+from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.base_user import AbstractBaseUser
+from .managers import UserManager
+from django.utils.translation import ugettext_lazy as _
 
 
 def default_color():
     return choice(Subject.COLORS_CHOICES)[0]
+
+
+class User(AbstractBaseUser):
+    username = models.CharField()
+
+    object = UserManager()
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _("users")
 
 
 class Subject(models.Model):
@@ -33,6 +47,10 @@ class Subject(models.Model):
     is_dead = models.BooleanField(default=False)
     type_of_subject = models.CharField(max_length=50, choices=SUBJECT_TYPE_CHOICES, default=SUBJECT_TYPE_HUMAN)
     color = models.CharField(choices=COLORS_CHOICES, max_length=50, default=default_color)
+    user = models.OneToOneField(
+        to=User,
+        on_delete=models.CASCADE
+    )
 
     def move(self, new_x, new_y):
         self.x_pos = new_x
@@ -56,3 +74,14 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Game_room(models.Model):
+    name = models.CharField(max_length=60,  unique=True)
+    players = models.ManyToManyField(User)
+    turn_number = models.IntegerField()
+    now_player = players[turn_number]
+
+    def next_turn(self):
+        self.turn_number = (self.turn_number + 1) % len(self.players)
+        self.save()
