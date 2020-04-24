@@ -5,6 +5,10 @@
 
 ## Local setup
 
+### Run project on docker
+- You can use it if us have docker and docker compose installed on your workstation
+- Just run `docker-compose up -d` and navigate to [localhost:8080](http://localhost:8080)
+
 ### Python
 - Setup python >= 3.7
 - run `pip install pipenv`

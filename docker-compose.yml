@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+    image: django-dev
+    restart: always
+    command: sh -c "
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+    network_mode: host
+    volumes:
+    - .:/src
+
+  vuejs:
+    build:
+      context: frontend
+      dockerfile: ../docker/vuejs/Dockerfile
+    image: vuejs-dev
+    restart: always
+    volumes:
+    - ./frontend:/src
+    command:
+      npm run serve
+    network_mode: host
