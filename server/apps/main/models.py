@@ -17,7 +17,7 @@ def default_color():
 class User(AbstractBaseUser):
     username = models.CharField(max_length=60)
 
-    object = UserManager()
+    objects = UserManager()
 
     class Meta:
         verbose_name = _('user')
@@ -68,7 +68,7 @@ class Subject(models.Model):
         return self.name
 
 
-class Game_room(models.Model):
+class GameRoom(models.Model):
     name = models.CharField(max_length=60,  unique=True)
     players = models.ManyToManyField(User)
     turn_number = models.IntegerField()
