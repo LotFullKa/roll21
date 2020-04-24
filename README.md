@@ -1,4 +1,5 @@
 # roll21
+look coverage report on [codecov.io](https://codecov.io/gh/ProKam/roll21)
 
 ## Local setup
 
@@ -14,7 +15,7 @@
 
 ### Vuejs
 - navigate to `frontend` dir
-- run npm install
+- run `npm install`
 
 ### Serve frontend
 - run `npm run serve` in `frontend` dir
