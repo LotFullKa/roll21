@@ -1,6 +1,7 @@
 # roll21
 [![codecov](https://codecov.io/gh/ProKam/roll21/branch/develop/graph/badge.svg?token=EBKPNYKPN1)](https://codecov.io/gh/ProKam/roll21)
-look coverage report on [codecov.io](https://codecov.io/gh/ProKam/roll21)
+
+* look coverage report on [codecov.io](https://codecov.io/gh/ProKam/roll21)
 
 ## Local setup
 
