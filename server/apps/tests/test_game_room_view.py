@@ -1,9 +1,6 @@
-import json
-
-from django.test import TestCase
 from django.urls import reverse
-from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
-from rest_framework.test import APIClient, APISimpleTestCase, APITestCase
+from rest_framework.status import HTTP_200_OK
+from rest_framework.test import APITestCase
 
 
 class GameRoomViewTestCase(APITestCase):
