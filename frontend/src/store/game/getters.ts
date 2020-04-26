@@ -13,7 +13,7 @@ export const getters: GetterTree<GameState, RootState> = {
     );
     return subject ? subject : null;
   },
-  cellHighlight: (state: GameState) => (
+  cellHighlight: (state: GameState, getters) => (
     cellX: number,
     cellY: number
   ): boolean => {
@@ -21,7 +21,7 @@ export const getters: GetterTree<GameState, RootState> = {
     return (
       (cellX - state.activeSubject.xPos) ** 2 +
         (cellY - state.activeSubject.yPos) ** 2 <=
-      state.moveSpeed ** 2
+        state.moveSpeed ** 2 && !getters.subjectByCoord(cellX, cellY)
     );
   },
   getMySubject: (state: GameState): Subject | null => {

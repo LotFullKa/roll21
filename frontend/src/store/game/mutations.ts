@@ -5,8 +5,8 @@ export const mutations: MutationTree<GameState> = {
   setStructure(state: GameState, payload: Subject[]): void {
     state.subjects = payload;
   },
-  toggleActiveSubject(state: GameState, payload: Subject | null): void {
-    state.activeSubject = state.activeSubject === payload ? null : payload;
+  setActiveSubject(state: GameState, payload: Subject | null): void {
+    state.activeSubject = payload;
   },
   setSubjectHp(state: GameState, payload: { id: number; hp: number }): void {
     if (!state.subjects) return;
@@ -18,14 +18,20 @@ export const mutations: MutationTree<GameState> = {
   },
   setSubjectPos(
     state: GameState,
-    payload: { id: number; x: number; y: number }
+    payload: { subject: Subject; x: number; y: number }
   ): void {
     if (!state.subjects) return;
-    const index: number | null = state.subjects.findIndex(
-      value => value.id === payload.id
+    const index: number = state.subjects.findIndex(
+      value => value === payload.subject
     );
-    if (!index) return;
+    if (index === -1) return;
     state.subjects[index].xPos = payload.x;
     state.subjects[index].yPos = payload.y;
+  },
+  updateSubject(state: GameState, payload: Subject) {
+    if (!state.subjects) return;
+    const index: number = state.subjects.findIndex(value => value === payload);
+    if (index === -1) return;
+    state.subjects[index] = payload;
   }
 };

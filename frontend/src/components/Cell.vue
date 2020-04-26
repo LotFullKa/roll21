@@ -1,12 +1,15 @@
 <template>
-  <div class="cell" :highlight="isHighlighted">
+  <div
+    class="cell"
+    :highlight="isHighlighted"
+    @click="cellClick({ x: cellId, y: rowId })"
+  >
     <div
       class="subject"
       v-if="!!subject"
       :title="subject.name"
       :color="subject.color"
       :isDead="subject.isDead"
-      @click="toggleSubject(subject)"
     >
       <template v-if="!subject.isDead">{{ subject.id }}</template>
     </div>
@@ -29,9 +32,10 @@ export default class Cell extends Vue {
   subjectByCoord!: (posX: number, posY: number) => Subject | null;
   @gameModule.Getter
   cellHighlight!: (cellX: number, cellY: number) => boolean;
-  @gameModule.Mutation("toggleActiveSubject") toggleSubject!: (
-    arg0: Subject
-  ) => void;
+  @gameModule.Action("cellClick") cellClick!: (payload: {
+    x: number;
+    y: number;
+  }) => void;
 
   get subject(): Subject | null {
     return this.subjectByCoord(this.cellId, this.rowId);
