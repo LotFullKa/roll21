@@ -35,8 +35,8 @@ export default class Field extends Vue {
   }
 
   loadUpdate(): void {
-    this.fetchData();
-    console.log('UPDATE');
+    // this.fetchData();
+    console.log("UPDATE");
   }
 }
 </script>
