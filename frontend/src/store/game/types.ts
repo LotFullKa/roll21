@@ -3,6 +3,7 @@ export interface GameState {
     myId?: number;
     xSize: number;
     ySize: number;
+    updateRate: number;
 }
 
 export interface Subject {

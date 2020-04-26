@@ -10,6 +10,7 @@ export const state: GameState = {
     myId: 1,
     xSize: 15,
     ySize: 15,
+    updateRate: 1000,
 };
 
 const namespaced = true;

@@ -23,8 +23,20 @@ export default class Field extends Vue {
   @gameModule.State(state => state.ySize) ySize!: number;
   @gameModule.Action("fetchData") fetchData!: () => void;
 
+  interval!: number;
+
   created(): void {
     this.fetchData();
+    this.interval = setInterval(this.loadUpdate, 1000);
+  }
+
+  beforeDestroy(): void {
+    clearInterval(this.interval);
+  }
+
+  loadUpdate(): void {
+    this.fetchData();
+    console.log('UPDATE');
   }
 }
 </script>

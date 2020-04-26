@@ -2,7 +2,7 @@
   <div class="cell">
     <div
       class="subject"
-      v-if="subject"
+      v-if="!!subject"
       :title="subject.name"
       :color="subject.color"
       :isDead="subject.isDead"
