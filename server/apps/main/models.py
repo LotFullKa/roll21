@@ -53,7 +53,8 @@ class Subject(models.Model):
 
     def save(self, **kwargs):
         if self._state.adding:
-            self.x_pos, self.y_pos = self.generate_pos()
+            if not (self.x_pos and self.y_pos):
+                self.x_pos, self.y_pos = self.generate_pos()
         super().save(**kwargs)
 
     def generate_pos(self):
