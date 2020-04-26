@@ -19,7 +19,7 @@ jobs:
         pipenv install --dev --system
     - name: Django testing and generate coverage report
       run: |
-        coverage run manage.py test  -v2
+        coverage run manage.py test  -v2  --cov-config=./.coveragerc
         coverage xml -o coverage.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.2
