@@ -13,12 +13,12 @@
 ### Python
 - Setup python >= 3.7
 - run `pip install pipenv`
-- navigate to project dir
-- run pipenv `install`
-- If u need to activate your environment in shell run `pipenv shell`
+- run `pipenv install`
+- run `pipenv shell`
+- run `python manage.py migrate`
+- for generate dots on field run `python manage.py generate`
 
 ### Run local django server
-- python `manage.py migrate`
 - run `python manage.py runserver`
 
 ### Vuejs
