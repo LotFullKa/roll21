@@ -72,7 +72,8 @@ class Subject(models.Model):
 
 
 class GameRoom(models.Model):
-    name = models.CharField(max_length=60,  unique=True)
+    # TODO: @ProKam change GameRoom - User on GameRoom - Subject
+    name = models.CharField(max_length=60, unique=True)
     players = models.ManyToManyField(User)
     turn_number = models.IntegerField(default=0)
     now_player = models.ForeignKey(
