@@ -18,6 +18,7 @@
 - If u need to activate your environment in shell run `pipenv shell`
 
 ### Run local django server
+- python manage.py migrate
 - run `python manage.py runserver`
 
 ### Vuejs
