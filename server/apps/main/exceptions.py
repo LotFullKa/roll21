@@ -1,0 +1,2 @@
+class DistanceError(Exception):
+    pass

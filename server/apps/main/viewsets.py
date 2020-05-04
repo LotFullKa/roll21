@@ -1,9 +1,12 @@
+from rest_framework.exceptions import ValidationError
 from django.http import Http404
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+
+from main.exceptions import DistanceError
 from main.models import Subject, GameRoom, User
 from main.serializers import (
     SubjectSerializer,
@@ -23,9 +26,12 @@ class SubjectViewSet(ModelViewSet):
         subject: Subject = self.get_object()
         serializer = SubjectMoveSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            subject.move(
-                serializer.validated_data["x_pos"], serializer.validated_data["y_pos"]
-            )
+            try:
+                subject.move(
+                    serializer.validated_data["x_pos"], serializer.validated_data["y_pos"]
+                )
+            except DistanceError:
+                raise ValidationError("This cell too far")
             return Response(status=HTTP_200_OK, data=SubjectSerializer(instance=subject).data)
 
 

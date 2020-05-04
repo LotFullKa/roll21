@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subject',
             name='color',
-            field=models.CharField(choices=[('ColorEnum.RED', 'red'), ('ColorEnum.BLUE', 'blue'), ('ColorEnum.GREEN', 'green')], default=main.models.default_color, max_length=50),
+            field=models.CharField(choices=[('ColorEnum.RED', 'red'), ('ColorEnum.BLUE', 'blue'), ('ColorEnum.GREEN', 'green')], default=main.models.subject.default_color, max_length=50),
         ),
         migrations.AlterField(
             model_name='subject',

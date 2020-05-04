@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='subject',
             name='color',
-            field=models.CharField(choices=[('red', 'красный'), ('blue', 'голубой'), ('green', 'зеленый')], default=main.models.default_color, max_length=50),
+            field=models.CharField(choices=[('red', 'красный'), ('blue', 'голубой'), ('green', 'зеленый')], default=main.models.subject.default_color, max_length=50),
         ),
         migrations.AlterField(
             model_name='subject',

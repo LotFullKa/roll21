@@ -6,7 +6,7 @@ from typing import Type, List, Tuple
 def enum_to_choices(enum: Type[Enum]) -> List[Tuple]:
     """Convert enum to django choices."""
 
-    return [(item.name, item.value) for item in enum]
+    return [(item.name, str(item.value)) for item in enum]
 
 
 def enum_to_key_list(enum: Type[Enum]) -> List[str]:
