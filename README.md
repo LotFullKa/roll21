@@ -17,6 +17,7 @@
 - run `pipenv shell`
 - run `python manage.py migrate`
 - for generate dots on field run `python manage.py generate`
+- for look on subjects whithout Vuejs look `http://127.0.0.1:8000/api/subjects/`
 
 ### Run local django server
 - run `python manage.py runserver`
