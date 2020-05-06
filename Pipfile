@@ -4,10 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+ipython = "*"
+factory-boy = "*"
+coverage = "*"
+mimesis-factory = "*"
 
 [packages]
 django = "*"
 djangorestframework = "*"
+djangorestframework-camel-case = "*"
+django-cors-headers = "*"
 
 [requires]
-python_version = "^3.7"
+python_version = "3.6"
