@@ -1,7 +1,8 @@
 import factory
 
 from main.constants import SubjectTypeEnum, ColorEnum
-from main.models import Subject, GameRoom, User
+from main.models import Subject, GameRoom
+from main.models.user import User
 from utils.enum_helpers import enum_to_key_list
 from mimesis_factory import MimesisField
 
@@ -24,7 +25,7 @@ class UserFactory(factory.DjangoModelFactory):
 
 class GameRoomFactory(factory.DjangoModelFactory):
     name = MimesisField('username')
-    now_player = factory.SubFactory(UserFactory)
+    now_player = factory.SubFactory(SubjectFactory)
 
     @factory.post_generation
     def players(self, create, extracted, **kwargs):

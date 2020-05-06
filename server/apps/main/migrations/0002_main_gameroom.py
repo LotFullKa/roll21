@@ -16,7 +16,7 @@ def reverse_func(apps, *args):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("main", "0005_auto_20200424_1958"),
+        ("main", "0001_initial"),
     ]
 
     operations = [
