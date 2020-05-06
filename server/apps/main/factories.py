@@ -1,8 +1,7 @@
 import factory
 
 from main.constants import SubjectTypeEnum, ColorEnum
-from main.models import Subject, GameRoom
-from main.models.user import User
+from main.models import Subject, GameRoom, User
 from utils.enum_helpers import enum_to_key_list
 from mimesis_factory import MimesisField
 

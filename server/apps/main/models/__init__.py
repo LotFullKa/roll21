@@ -1,3 +1,3 @@
-from .user import User
-from .subject import Subject
-from .game_room import GameRoom
+from main.models.user import User
+from main.models.subject import Subject
+from main.models.game_room import GameRoom
