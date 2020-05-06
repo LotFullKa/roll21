@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from main.constants import ColorEnum
 from main.factories import SubjectFactory
-from main.models import Subject, default_color
+from main.models.subject import Subject, default_color
 from utils.enum_helpers import enum_to_key_list
 
 
